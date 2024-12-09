@@ -94,7 +94,7 @@ box_dbs <- ggplot(adherence_data,aes(y=dbs))+
   geom_boxplot(outlier.colour="black", outlier.shape=16,
              outlier.size=2, notch=FALSE)+
   scale_y_log10()+
-  ggtitle("A: TVFdp conc.")+
+  ggtitle("A: TVFdp\nconc.")+
   ylab("TVFdp concentration (mmol/punch)")+
   theme(axis.text.x = element_blank(),axis.ticks = element_blank())
 
@@ -102,7 +102,7 @@ box_dbs <- ggplot(adherence_data,aes(y=dbs))+
 box_eam <- ggplot(adherence_data,aes(y=prep_adh))+
   geom_boxplot(outlier.colour="black", outlier.shape=16,
                outlier.size=2, notch=FALSE)+
-  ggtitle("B: EAM Adherence")+
+  ggtitle("B: EAM\nAdherence")+
   ylab("EAM Adherence (%)")+
   theme(axis.text.x = element_blank(),axis.ticks = element_blank())
 
@@ -111,12 +111,12 @@ box_pharm <- ggplot(adherence_data,aes(y=pharm_adh))+
   geom_boxplot(outlier.colour="black", outlier.shape=16,
                outlier.size=2, notch=FALSE)+
   scale_y_log10()+
-  ggtitle("C: Pharmacy refills")+
+  ggtitle("C: Pharmacy\nrefills")+
   ylab("Pharmacy refills (%)")+
 theme(axis.text.x = element_blank(),axis.ticks = element_blank())
 
 boxplot <- ggarrange(box_dbs,box_eam,box_pharm,nrow = 1)
-ggsave(filename="boxplot_adherence.pdf",plot = boxplot,width=3.4,height=2, dpi = 100,scale = 2)
+ggsave(filename="boxplot_adherence.pdf",plot = boxplot,width=3.4,height=2, dpi = 100,scale = 1.5)
 
 ################ ECDF plots for data sources
 
@@ -156,7 +156,6 @@ line_dbs <- ggplot(adherence_data)+
   ggtitle("A: TVFdp conc.")+
   xlab("month")+
   ylab("TVFdp concentration (mmol/punch)")
-line_dbs
 
 # EAM adherence
 line_eam <- ggplot(adherence_data)+
@@ -166,7 +165,6 @@ line_eam <- ggplot(adherence_data)+
   ggtitle("B: EAM Adherence")+
   xlab("month")+
   ylab("EAM Adherence (%)")
-line_eam
 
 # Pharmacy refill adherence
 line_pharm <- ggplot(adherence_data)+
@@ -176,7 +174,6 @@ line_pharm <- ggplot(adherence_data)+
   ggtitle("C: Pharmacy refills")+
   xlab("month")+
   ylab("Pharmacy refills (%)")
-line_pharm
 
 spaghetti <- ggarrange(line_dbs,line_eam,line_pharm,nrow = 1)
 ggsave(filename="spaghettiplot_adherence.pdf",plot = spaghetti,width=3,height=1, dpi =300,scale = 2.75)
@@ -277,10 +274,7 @@ scatter_dbs_eam <- ggscatter(data=adherence_data%>%filter(!is.na(dbs)&!is.na(pre
                              alpha=0.5,
                              add = "reg.line",
                              conf.int = TRUE,
-                             cor.coef = TRUE,
-                             cor.coef.coord = c(25,3.5),
-                             add.params = list(color = "blue", fill = "lightgray"),
-                             cor.coeff.args = list(method = "pearson", label.x = 3))+
+                             add.params = list(color = "blue", fill = "lightgray"))+
   ylab("TVFdp concentration (mmol/punch)")+
   xlab("EAM Adherence (%)")+
   ggtitle("A: Association TVFdp conc. and\nEAM adherence")+
@@ -291,10 +285,7 @@ scatter_dbs_pharm <- ggscatter(data=adherence_data%>%filter(!is.na(dbs)&!is.na(p
                              alpha=0.5,
                              add = "reg.line",
                              conf.int = TRUE,
-                             cor.coef = TRUE,
-                             cor.coef.coord = c(25,3.5),
-                             add.params = list(color = "blue", fill = "lightgray"),
-                             cor.coeff.args = list(method = "pearson", label.x = 3))+
+                             add.params = list(color = "blue", fill = "lightgray"))+
   ylab("TVFdp concentration (mmol/punch)")+
   xlab("Pharmacy Refills (%)")+
   ggtitle("B: Association TVFdp conc. and\nPharmacy Refills")+
@@ -305,10 +296,7 @@ scatter_prep_pharm <- ggscatter(data=adherence_data%>%filter(!is.na(prep_adh)&!i
                                alpha=0.5,
                                add = "reg.line",
                                conf.int = TRUE,
-                               cor.coef = TRUE,
-                               cor.coef.coord = c(25,100),
-                               add.params = list(color = "blue", fill = "lightgray"),
-                               cor.coeff.args = list(method = "pearson", label.x = 3))+
+                               add.params = list(color = "blue", fill = "lightgray"))+
   ylab("EAM adherence (%)")+
   xlab("Pharmacy Refills (%)")+
   ggtitle("C: Association EAM adherence\nand Pharmacy Refills")
