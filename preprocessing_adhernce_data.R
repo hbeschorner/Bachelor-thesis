@@ -3,7 +3,6 @@ library(readxl)
 library(dplyr)
 library(tidyr)
 library(ggpubr)
-library(stringr)
 
 # Load in TFVdp measurements from the dried blood spots
 # when multiple entries for the same patient and visitcode exist, choose the one closer to the intended date

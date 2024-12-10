@@ -95,7 +95,7 @@ box_dbs <- ggplot(adherence_data,aes(y=dbs))+
              outlier.size=2, notch=FALSE)+
   scale_y_log10()+
   ggtitle("A: TVFdp\nconc.")+
-  ylab("TVFdp concentration (mmol/punch)")+
+  ylab("TVFdp concentration (fmol/punch)")+
   theme(axis.text.x = element_blank(),axis.ticks = element_blank())
 
 # EAM adherence
@@ -124,7 +124,7 @@ ggsave(filename="boxplot_adherence.pdf",plot = boxplot,width=3.4,height=2, dpi =
 ecdf_dbs <- ggplot(adherence_data,aes(dbs))+
   stat_ecdf(geom = "step")+
   ggtitle("A: ECDF TVFdp concentration")+
-  xlab("TVFdp concentration (mmol/punch)")+
+  xlab("TVFdp concentration (fmol/punch)")+
   ylab("Fraction of Data")+
   scale_x_continuous(limits = c(0,3050),breaks = c(0,500,1000,1500,2000,2500,3000))
 
@@ -155,7 +155,7 @@ line_dbs <- ggplot(adherence_data)+
   scale_x_continuous(breaks=c(3,6,9,12,15,18,21,24))+
   ggtitle("A: TVFdp conc.")+
   xlab("month")+
-  ylab("TVFdp concentration (mmol/punch)")
+  ylab("TVFdp concentration (fmol/punch)")
 
 # EAM adherence
 line_eam <- ggplot(adherence_data)+
@@ -275,7 +275,7 @@ scatter_dbs_eam <- ggscatter(data=adherence_data%>%filter(!is.na(dbs)&!is.na(pre
                              add = "reg.line",
                              conf.int = TRUE,
                              add.params = list(color = "blue", fill = "lightgray"))+
-  ylab("TVFdp concentration (mmol/punch)")+
+  ylab("TVFdp concentration (fmol/punch)")+
   xlab("EAM Adherence (%)")+
   ggtitle("A: Association TVFdp conc. and\nEAM adherence")+
   scale_y_log10()
@@ -286,7 +286,7 @@ scatter_dbs_pharm <- ggscatter(data=adherence_data%>%filter(!is.na(dbs)&!is.na(p
                              add = "reg.line",
                              conf.int = TRUE,
                              add.params = list(color = "blue", fill = "lightgray"))+
-  ylab("TVFdp concentration (mmol/punch)")+
+  ylab("TVFdp concentration (fmol/punch)")+
   xlab("Pharmacy Refills (%)")+
   ggtitle("B: Association TVFdp conc. and\nPharmacy Refills")+
   scale_y_log10()
@@ -327,7 +327,6 @@ dropouts <- ggplot(plot_dropouts,aes(x=visitcode,y=n,group = stopped,colour= sto
   guides(group = guide_legend(title = ""))+
   guides(colour = guide_legend(title = ""))+
   scale_x_continuous(name = "month",breaks=c(3,6,9,12,15,18,21,24))+
-  ylab("Proportion of dropped out\nparticipants(%)")+
-  ggtitle("Proportion of dropped out participants over time")
+  ylab("Proportion of dropped out\nparticipants(%)")
 
 ggsave(filename="dropouts.pdf",plot = dropouts,width=2,height=1, dpi =100,scale = 3)

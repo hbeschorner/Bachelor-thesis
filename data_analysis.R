@@ -143,7 +143,7 @@ c2 <- plt_c2 %>%
   scale_x_discrete(labels=c("high","declining","low")) +
   scale_y_discrete(labels=c("low","declining","high")) +
   labs(y = "class Pharmacy",x = "class DBS")+
-  ggtitle("B: Contingency table\n     DBS,Pharmacy refills")
+  ggtitle("B: Contingency table\n     DBS, Pharmacy refills")
 
 # EAM and pharmacy refills
 prep_pharm <- merge(groups_prep%>%select(ptid,group_prep)%>%mutate(group_prep=as.factor(group_prep))%>%mutate(group_prep=fct_relevel(group_prep,c("low","declining","high"))),groups_pharm%>%select(ptid,group_pharm)%>%mutate(group_pharm=as.factor(group_pharm))%>%mutate(group_pharm=fct_relevel(group_pharm,c("low","declining","high"))), by = c("ptid"))
@@ -337,7 +337,7 @@ ot_1 <- ggplot(concordance_over_time_1,aes(y=n,x=month,group=accuracy,color=accu
   ggtitle("A: all DBS trajectories combined")+
   guides(group= guide_legend(title ="DBS compared to EAM"))+
   guides(color=guide_legend(title ="DBS compared to EAM"))+
-  scale_y_continuous(labels = scales::percent)
+  scale_y_continuous(labels = scales::percent,limits = c(0,1))
 
 concordance_over_time_2 <- merge(data_dbs_values%>%filter(group_dbs=="low"),data_eam_values,by=c("ptid","month"))%>%
   filter(!is.na(eam) & !is.na(dbs))%>%
@@ -358,7 +358,7 @@ ot_2 <- ggplot(concordance_over_time_2,aes(y=n,x=month,group=accuracy,color=accu
   ggtitle("B: low DBS-tajectory")+
   guides(group= guide_legend(title ="DBS compared to EAM"))+
   guides(color=guide_legend(title ="DBS compared to EAM"))+
-  scale_y_continuous(labels = scales::percent)
+  scale_y_continuous(labels = scales::percent,limits = c(0,1))
 
 concordance_over_time_3 <- merge(data_dbs_values%>%filter(group_dbs=="declining"),data_eam_values,by=c("ptid","month"))%>%
   filter(!is.na(eam) & !is.na(dbs))%>%
@@ -379,7 +379,7 @@ ot_3 <- ggplot(concordance_over_time_3,aes(y=n,x=month,group=accuracy,color=accu
   ggtitle("C: declining DBS-trajectory")+
   guides(group= guide_legend(title ="DBS compared to EAM"))+
   guides(color=guide_legend(title ="DBS compared to EAM"))+
-  scale_y_continuous(labels = scales::percent)
+  scale_y_continuous(labels = scales::percent,limits = c(0,1))
 
 concordance_over_time_4 <- merge(data_dbs_values%>%filter(group_dbs=="high"),data_eam_values,by=c("ptid","month"))%>%
   filter(!is.na(eam) & !is.na(dbs))%>%
@@ -400,7 +400,7 @@ ot_4 <- ggplot(concordance_over_time_4,aes(y=n,x=month,group=accuracy,color=accu
   ggtitle("D: high DBS-trajectory")+
   guides(group= guide_legend(title ="DBS compared to EAM"))+
   guides(color=guide_legend(title ="DBS compared to EAM"))+
-  scale_y_continuous(labels = scales::percent)
+  scale_y_continuous(labels = scales::percent,limits = c(0,1))
 
 ot <- ggarrange(ot_1,ot_2,ot_3,ot_4,ncol=2, nrow=2, common.legend = TRUE, legend="bottom")
 ot <- annotate_figure(ot, top = text_grob("DBS adherence compared to EAM adherence over time", 
@@ -575,7 +575,7 @@ ot_1_dropouts <- ggplot(concordance_over_time_1_dropouts,aes(y=n,x=month,group=a
   ggtitle("A: all DBS trajectories combined")+
   guides(group= guide_legend(title ="DBS compared to EAM"))+
   guides(color=guide_legend(title ="DBS compared to EAM"))+
-  scale_y_continuous(labels = scales::percent)
+  scale_y_continuous(labels = scales::percent,limits = c(0,1))
 
 # plot concordance over time (DBS/EAM) (for dpw) for low DBS-trajectory
 concordance_over_time_2_dropouts <- cont_adherence_dropouts%>%
@@ -597,7 +597,7 @@ ot_2_dropouts <- ggplot(concordance_over_time_2_dropouts,aes(y=n,x=month,group=a
   ggtitle("B: low DBS-tajectory")+
   guides(group= guide_legend(title ="DBS compared to EAM"))+
   guides(color=guide_legend(title ="DBS compared to EAM"))+
-  scale_y_continuous(labels = scales::percent)
+  scale_y_continuous(labels = scales::percent,limits = c(0,1))
 
 # plot concordance over time (DBS/EAM) (for dpw) for declining DBS-trajectory
 concordance_over_time_3_dropouts <- cont_adherence_dropouts%>%
@@ -619,7 +619,7 @@ ot_3_dropouts <- ggplot(concordance_over_time_3_dropouts,aes(y=n,x=month,group=a
   ggtitle("C: declining DBS-trajectory")+
   guides(group= guide_legend(title ="DBS compared to EAM"))+
   guides(color=guide_legend(title ="DBS compared to EAM"))+
-  scale_y_continuous(labels = scales::percent)
+  scale_y_continuous(labels = scales::percent,limits = c(0,1))
 
 # plot concordance over time (DBS/EAM) (for dpw) for high DBS-trajectory
 concordance_over_time_4_dropouts <- cont_adherence_dropouts%>%
@@ -641,7 +641,7 @@ ot_4_dropouts <- ggplot(concordance_over_time_4_dropouts,aes(y=n,x=month,group=a
   ggtitle("D: high DBS-trajectory")+
   guides(group= guide_legend(title ="DBS compared to EAM"))+
   guides(color=guide_legend(title ="DBS compared to EAM"))+
-  scale_y_continuous(labels = scales::percent)
+  scale_y_continuous(labels = scales::percent,limits = c(0,1))
 
 # arrange and save plots
 ot_dropouts <- ggarrange(ot_1_dropouts,ot_2_dropouts,ot_3_dropouts,ot_4_dropouts,ncol=2, nrow=2, common.legend = TRUE, legend="bottom")
@@ -808,6 +808,7 @@ plot_no_sms_dropouts_over_time <- plots_no_sms_dropouts %>%
   ungroup()
 
 data_plots_sms_dropouts <- rbind(plot_sms_dropouts_over_time%>%mutate(arm="SMS reminders"), plot_no_sms_dropouts_over_time%>%mutate(arm="no SMS reminders"))
+data_plots_sms_dropouts <- data_plots_sms_dropouts %>% mutate(month = 3 * month)
 
 # plot results
 plots_sms_dropouts_over_time <- ggplot(data_plots_sms_dropouts,aes(x=month,y=n,group = arm,colour= arm))+
@@ -815,8 +816,7 @@ plots_sms_dropouts_over_time <- ggplot(data_plots_sms_dropouts,aes(x=month,y=n,g
   guides(group = guide_legend(title = "Study arm"))+
   guides(colour = guide_legend(title = "Study arm"))+
   scale_x_continuous(name = "month",breaks=c(3,6,9,12,15,18,21,24))+
-  ylab("Proportion of dropped out \nparticipants(%)")+
-  ggtitle("Dropouts over time depending on study arm")
+  ylab("Proportion of dropped out \nparticipants(%)")
 
 ggsave(filename="dropouts_sms.pdf",plot = plots_sms_dropouts_over_time,width=2,height=1, dpi =100,scale = 3)
 
@@ -1066,7 +1066,7 @@ line_dbs_declining <- ggplot()+
   scale_x_continuous(breaks=c(3,6,9,12,15,18,21,24))+
   ggtitle("C: Declining TVFdp trajectory")+
   xlab("month")+
-  ylab("TVFdp concentration \n(mmol/punch)")
+  ylab("TVFdp concentration \n(fmol/punch)")
 
 # for low DBS trajectory
 dbs_spag_low <- merge(adherence_data,groups_dbs,by = "ptid")%>%filter(group_dbs=="low")
@@ -1087,7 +1087,7 @@ g <- grid::rasterGrob(dbs_trajectories, interpolate=TRUE)
 img_trajectories <- ggplot() +
   theme_minimal()+
   ggtitle("        A: TFCdp trajectories")+
-  ylab("TVFdp concentration \n(mmol/punch)")+
+  ylab("TVFdp concentration \n(fmol/punch)")+
   annotation_custom(g, xmin=-Inf, xmax=Inf, ymin=-Inf, ymax=Inf)+
   theme(axis.text.x=element_blank(), 
         axis.ticks.x=element_blank(), 
