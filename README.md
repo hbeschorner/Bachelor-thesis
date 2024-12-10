@@ -21,7 +21,7 @@ conda env create -f environment.yml
 ```
 if the installation with the environment.yml does not work use:
 ```
-conda create -n prep_adh_modelling -c conda-forge r-base=4.4.2 r-dplyr r-ggpubr r-readxl r-tidyr r-ggplot2 r-purrr r-caret r-forcats r-magick r-shades r-pdftools
+conda create -n prep_adh_modelling -c conda-forge r-base=4.4.2 r-dplyr r-ggpubr r-readxl r-tidyr r-ggplot2 r-purr r-caret r-forcats r-magick r-shades r-pdftools
 ```
 to create the conda environment
 
@@ -50,7 +50,7 @@ Rscript preprocessing_adhernce_data.R
 
 Afterwards create the models by running dsb_model.do, eam_model.do, pharm_model.do in stata
 
-(trajplots from stata have to be exported to dbs_adherence_ci.pdf, eam_adherence_ci.pdf, pharm_adherence_ci.pdf for data_analysis)
+(trajplots from stata have to be formatted and exported to dbs_adherence_ci.pdf, eam_adherence_ci.pdf, pharm_adherence_ci.pdf for data_analysis.R, examples for the formatted stata graphs can be found in the stata_plots folder)
 
 To generate the plots, run the R-scrips data_exploration.R and data_analysis.R with:
 ```
